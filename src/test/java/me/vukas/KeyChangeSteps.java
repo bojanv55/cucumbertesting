@@ -11,17 +11,17 @@ public class KeyChangeSteps {
 	private Market market;
 
 	@Given("^the key of market is (\\d+)$")
-	public void theKeyOfMarketIs(int currentKey) throws Throwable {
+	public void theKeyOfMarketIs(int currentKey) {
 		this.market = new Market(currentKey);
 	}
 
 	@When("^I increase market key for (\\d+)$")
-	public void iIncreaseMarketKeyFor(int keyIncrement) throws Throwable {
+	public void iIncreaseMarketKeyFor(int keyIncrement) {
 		this.market.incrementKey(keyIncrement);
 	}
 
 	@Then("^new market key should be (\\d+)$")
-	public void newMarketKeyShouldBe(int newKey) throws Throwable {
+	public void newMarketKeyShouldBe(int newKey) {
 		assertThat(this.market.getKey()).isEqualTo(newKey);
 	}
 }
