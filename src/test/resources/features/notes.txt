@@ -1,0 +1,2 @@
+- incidental details - keep amount of needed info in scenarios to lowest possible
+- use declarative style in steps definition (not imperative)
