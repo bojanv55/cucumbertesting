@@ -43,6 +43,6 @@ public class KeyChange2Steps {
 				.perform(get("/market/1"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-				.andExpect(jsonPath("$.key").value(newKey));
+				.andExpect(jsonPath("$.key.value").value(newKey));
 	}
 }

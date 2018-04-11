@@ -1,5 +1,8 @@
 package me.vukas;
 
+import me.vukas.domain.Key;
+import me.vukas.domain.Market;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,7 +21,7 @@ public class MarketServiceImpl implements MarketService {
 	}
 
 	@Override
-	public Market createMarket(int key) {
+	public Market createMarket(Key key) {
 		this.market = new Market(key);
 		return this.market;
 	}

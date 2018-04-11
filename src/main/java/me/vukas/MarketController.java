@@ -1,5 +1,8 @@
 package me.vukas;
 
+import me.vukas.domain.Key;
+import me.vukas.domain.Market;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +28,7 @@ public class MarketController {
 
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping("createMarket/{key}")
-	public Market createMarket(@PathVariable Integer key){
+	public Market createMarket(@PathVariable Key key){
 		return this.marketService.createMarket(key);
 	}
 
