@@ -9,6 +9,13 @@ import org.springframework.stereotype.Service;
 public class MarketServiceImpl implements MarketService {
 
 	private Market market;
+	private MarketRepo repo;
+	private MarketJpaRepo jpaRepo;
+
+	public MarketServiceImpl(MarketRepo repo, MarketJpaRepo jpaRepo){
+		this.repo = repo;
+		this.jpaRepo = jpaRepo;
+	}
 
 	@Override
 	public void incrementKey(int increment) {
@@ -24,5 +31,15 @@ public class MarketServiceImpl implements MarketService {
 	public Market createMarket(Key key) {
 		this.market = new Market(key);
 		return this.market;
+	}
+
+	@Override
+	public String getFromDb(int id) {
+		return this.repo.getDataById(id);
+	}
+
+	@Override
+	public String getFromDbJpa(int id) {
+		return this.jpaRepo.findById(id).orElse(new Article()).getContent();
 	}
 }

@@ -7,4 +7,6 @@ public interface MarketService {
 	void incrementKey(int increment);
 	Market getMarket(int id);
 	Market createMarket(Key key);
+	String getFromDb(int id);
+	String getFromDbJpa(int id);
 }

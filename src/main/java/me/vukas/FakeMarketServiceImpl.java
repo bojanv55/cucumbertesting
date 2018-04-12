@@ -21,4 +21,14 @@ public class FakeMarketServiceImpl implements MarketService {
 	public Market createMarket(Key key) {
 		return null;
 	}
+
+	@Override
+	public String getFromDb(int id) {
+		return null;
+	}
+
+	@Override
+	public String getFromDbJpa(int id) {
+		return null;
+	}
 }

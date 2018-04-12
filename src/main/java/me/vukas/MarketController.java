@@ -36,4 +36,14 @@ public class MarketController {
 	public Market getMarket(@PathVariable Integer id){
 		return this.marketService.getMarket(id);
 	}
+
+	@GetMapping("fromDb/{id}")
+	public String getFromDb(@PathVariable Integer id){
+		return this.marketService.getFromDb(id);
+	}
+
+	@GetMapping("fromDbJpa/{id}")
+	public String getFromDbJpa(@PathVariable Integer id){
+		return this.marketService.getFromDbJpa(id);
+	}
 }
