@@ -1,0 +1,5 @@
+driver: com.mysql.jdbc.Driver
+url: jdbc:mysql://10.10.121.137:3306/crawled?createDatabaseIfNotExist=true
+changeLogFile: src/test/resources/liquibase/crawled/changelog.xml
+username: root
+password: 123456
