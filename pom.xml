@@ -153,6 +153,8 @@
                                         </ports>
                                     </tcp>
                                     <time>20000</time>
+                                    <kill>10000</kill>
+                                    <shutdown>500</shutdown>
                                 </wait>
                                 <env>
                                     <MYSQL_ROOT_PASSWORD>abc123</MYSQL_ROOT_PASSWORD>
@@ -222,9 +224,9 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
+                            <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
