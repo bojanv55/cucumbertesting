@@ -59,6 +59,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
 
         <!--
         <dependency>
@@ -142,7 +147,7 @@
                     <dockerHost>http://10.10.121.137:2376</dockerHost>
                     <images>
                         <image>
-                            <alias>docker-mvn-test</alias>
+                            <alias>mysql-it</alias>
                             <name>mysql:5.7</name>
                             <run>
                                 <wait>
@@ -165,6 +170,31 @@
                                 </env>
                                 <ports>
                                     <port>3306:3306</port>
+                                </ports>
+                            </run>
+                        </image>
+                        <image>
+                            <alias>rabbit-it</alias>
+                            <name>rabbitmq:3.7</name>
+                            <run>
+                                <wait>
+                                    <tcp>
+                                        <host>10.10.121.137</host>
+                                        <ports>
+                                            <port>5672</port>
+                                        </ports>
+                                    </tcp>
+                                    <time>20000</time>
+                                    <kill>10000</kill>
+                                    <shutdown>500</shutdown>
+                                </wait>
+                                <env>
+                                    <RABBITMQ_DEFAULT_USER>root</RABBITMQ_DEFAULT_USER>
+                                    <RABBITMQ_DEFAULT_PASS>123456</RABBITMQ_DEFAULT_PASS>
+                                    <RABBITMQ_DEFAULT_VHOST>/</RABBITMQ_DEFAULT_VHOST>
+                                </env>
+                                <ports>
+                                    <port>5672:5672</port>
                                 </ports>
                             </run>
                         </image>

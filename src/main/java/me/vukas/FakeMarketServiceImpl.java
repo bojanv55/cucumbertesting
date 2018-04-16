@@ -31,4 +31,9 @@ public class FakeMarketServiceImpl implements MarketService {
 	public String getFromDbJpa(int id) {
 		return null;
 	}
+
+	@Override
+	public void saveMarketWithMsg(String msg) {
+
+	}
 }

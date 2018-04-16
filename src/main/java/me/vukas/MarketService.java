@@ -9,4 +9,5 @@ public interface MarketService {
 	Market createMarket(Key key);
 	String getFromDb(int id);
 	String getFromDbJpa(int id);
+	void saveMarketWithMsg(String msg);
 }

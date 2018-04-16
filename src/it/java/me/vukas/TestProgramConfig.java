@@ -2,13 +2,20 @@ package me.vukas;
 
 import javax.sql.DataSource;
 
+import org.springframework.amqp.core.AmqpAdmin;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @TestConfiguration
 public class TestProgramConfig {
@@ -21,6 +28,34 @@ public class TestProgramConfig {
 				.username("root")
 				.password("123456")
 				.build();
+	}
+
+	@Bean
+	public ConnectionFactory connectionFactory() {
+		CachingConnectionFactory factory = new CachingConnectionFactory();
+		factory.setAddresses("10.10.121.137:5672");
+		factory.setUsername("root");
+		factory.setPassword("123456");
+		factory.setVirtualHost("/");
+		return factory;
+	}
+
+	@Bean
+	public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory() {
+		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+		factory.setConnectionFactory(connectionFactory());
+		factory.setMaxConcurrentConsumers(5);
+		return factory;
+	}
+
+	@Bean
+	public PlatformTransactionManager transactionManager(){
+		return new JpaTransactionManager(entityManagerFactory().getObject());
+	}
+
+	@Bean
+	public AmqpAdmin rabbitAdmin(){
+		return new RabbitAdmin(connectionFactory());
 	}
 
 	@Bean

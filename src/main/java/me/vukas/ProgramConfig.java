@@ -6,11 +6,9 @@ import me.vukas.domain.Key;
 
 import javax.sql.DataSource;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
@@ -20,6 +18,7 @@ import com.fasterxml.jackson.module.paranamer.ParanamerModule;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "me.vukas")	//already enabled by spring boot (but not with this package)
+@EnableRabbit
 public class ProgramConfig {
 
 	private DataSource dataSource;
@@ -28,6 +27,11 @@ public class ProgramConfig {
 	public ProgramConfig(DataSource dataSource, MarketJpaRepo marketJpaRepo){
 		this.dataSource = dataSource;
 		this.marketJpaRepo = marketJpaRepo;
+	}
+
+	@Bean
+	public MarketListener marketListener(){
+		return new MarketListener(marketService());
 	}
 
 //	@ConfigurationProperties(prefix = "spring.datasource")

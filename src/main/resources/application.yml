@@ -3,5 +3,10 @@ spring:
     url: jdbc:mysql://10.10.121.137:33306/crawled
     username: root
     password: 123456
+  rabbitmq:
+    addresses: 10.10.121.137:35672
+    username: root
+    password: 123456
+    virtual-host: /
 server:
   port: 9797

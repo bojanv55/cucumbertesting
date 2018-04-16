@@ -42,4 +42,12 @@ public class MarketServiceImpl implements MarketService {
 	public String getFromDbJpa(int id) {
 		return this.jpaRepo.findById(id).orElse(new Article()).getContent();
 	}
+
+	@Override
+	public void saveMarketWithMsg(String msg) {
+		Article article = new Article();
+		article.setId(100);
+		article.setContent(msg);
+		this.jpaRepo.save(article);
+	}
 }
