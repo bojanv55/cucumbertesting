@@ -1,13 +1,12 @@
 package ctrl.lcoo.market.outcome;
 
+import lombok.Data;
+
+@Data
 public class Probability {
-	private Double value;
+	private final Double value;
 
-	public Probability(Double value){
-		this.value = value;
-	}
-
-	public Double value() {
-		return value;
+	public static Probability missing(){
+		return new Probability(null);
 	}
 }

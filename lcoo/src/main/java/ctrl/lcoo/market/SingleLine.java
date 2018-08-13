@@ -9,10 +9,13 @@ import java.util.stream.Collectors;
 import ctrl.lcoo.market.outcome.Odds;
 import ctrl.lcoo.market.outcome.Outcome;
 import ctrl.lcoo.market.outcome.OutcomeId;
+import ctrl.lcoo.market.outcome.Probability;
+import lombok.ToString;
 
+@ToString
 public class SingleLine<T extends LineId> implements Line<T> {
-	private T lineId;
-	private Set<Outcome> outcomes;
+	private final T lineId;
+	private final Set<Outcome> outcomes;
 
 	private SingleLine(Builder<T> builder){
 		lineId = builder.lineId;
@@ -26,19 +29,11 @@ public class SingleLine<T extends LineId> implements Line<T> {
 
 	@Override
 	public Line<T> adjustOdds(OutcomeId outcomeId, Odds odds, TypeKey... typeKeys) {
-		Set<Outcome> filteredOutcomes = outcomes.stream().filter(o -> !Objects.equals(o.outcomeId(), outcomeId)).collect(Collectors.toSet());
+		Set<Outcome> filteredOutcomes = outcomes.stream().filter(o -> !Objects.equals(o.getOutcomeId(), outcomeId)).collect(Collectors.toSet());
 		return new Builder<>(lineId)
 				.addOutcomes(filteredOutcomes)
-				.addOutcome(new Outcome(outcomeId, odds))
+				.addOutcome(new Outcome(outcomeId, odds, Probability.missing()))
 				.build();
-	}
-
-	@Override
-	public String toString() {
-		return "SingleLine{" +
-				"lineId=" + lineId +
-				", outcomes=" + outcomes +
-				'}';
 	}
 
 	public static class Builder<T extends LineId> {
