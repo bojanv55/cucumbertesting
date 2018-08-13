@@ -23,6 +23,7 @@
     <modules>
         <module>cucumberproject</module>
         <module>cucumberit</module>
+        <module>lcoo</module>
     </modules>
 
 

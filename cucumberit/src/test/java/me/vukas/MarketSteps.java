@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -63,7 +62,7 @@ public class MarketSteps {
 	}
 
 	@Given("^the key of market is (\\d+)$")
-	public void theKeyOfMarketIs(@Transform(KeyTransformer.class) Key currentKey) {
+	public void theKeyOfMarketIs(/*@Transform(KeyTransformer.class)*/ Key currentKey) {
 		this.market = new Market(currentKey);
 	}
 
@@ -73,7 +72,7 @@ public class MarketSteps {
 	}
 
 	@Then("^new market key should be (\\d+)$")
-	public void newMarketKeyShouldBe(@Transform(KeyTransformer.class) Key newKey) {
+	public void newMarketKeyShouldBe(/*@Transform(KeyTransformer.class)*/ Key newKey) {
 		assertThat(this.market.getKey()).isEqualTo(newKey);
 	}
 
