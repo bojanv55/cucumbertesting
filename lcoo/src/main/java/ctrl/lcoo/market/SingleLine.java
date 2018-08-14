@@ -1,7 +1,9 @@
 package ctrl.lcoo.market;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -28,12 +30,24 @@ public class SingleLine<T extends LineId> implements Line<T> {
 	}
 
 	@Override
-	public Line<T> adjustOdds(OutcomeId outcomeId, Odds odds, TypeKey... typeKeys) {
+	public Line<? extends LineId> getLine(TypeKey... typeKeys) {
+		return this;
+	}
+
+	@Override
+	public Line<T> adjustOutcome(OutcomeId outcomeId, Odds odds, TypeKey... typeKeys) {
 		Set<Outcome> filteredOutcomes = outcomes.stream().filter(o -> !Objects.equals(o.getOutcomeId(), outcomeId)).collect(Collectors.toSet());
 		return new Builder<>(lineId)
 				.addOutcomes(filteredOutcomes)
 				.addOutcome(new Outcome(outcomeId, odds, Probability.missing()))
 				.build();
+	}
+
+	@Override
+	public Map<LineId[], Set<Outcome>> getOutcomes() {
+		Map<LineId[], Set<Outcome>> lineIdsToOutcomes = new HashMap<>();
+		lineIdsToOutcomes.put(null, outcomes);	//caller of this (if any) will map this to proper type-key
+		return lineIdsToOutcomes;
 	}
 
 	public static class Builder<T extends LineId> {
